@@ -1,4 +1,4 @@
-# Game_CreaturesInTheDark
+# VVENDIKON
 This is a group project developed on Unity
 
 ## Team Members: (Pardon me, If I didn't spell names correctly 😅)
