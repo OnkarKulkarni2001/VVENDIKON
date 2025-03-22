@@ -5,35 +5,36 @@ using UnityEngine;
 public class FlashLight : MonoBehaviour
 {
     public GameObject Player;
-    public Light light;
+
+    [SerializeField] public Light flashLightLight; // Using this line insted of line "public Light light;"  - by Onkar
 
     private bool light_increase = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        light.intensity = 0.01f;
+        GetComponent<Light>().intensity = 0.01f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (light.intensity > 1.75)
+        if (GetComponent<Light>().intensity > 1.75)
         {
             light_increase = false;
         }
-        else if (light.intensity <= 0.01)
+        else if (GetComponent<Light>().intensity <= 0.01)
         {
             light_increase = true;
         }
 
         if (light_increase)
         {
-            light.intensity += 0.015f;
+            GetComponent<Light>().intensity += 0.015f;
         }
         else
         {
-            light.intensity -= 0.015f;
+            GetComponent<Light>().intensity -= 0.015f;
         }
     }
 }

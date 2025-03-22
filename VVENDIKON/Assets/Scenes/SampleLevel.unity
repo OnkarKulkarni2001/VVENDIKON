@@ -18345,7 +18345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1130976821}
-  light: {fileID: 1240124352}
+  flashLightLight: {fileID: 0}
 --- !u!108 &1240124352
 Light:
   m_ObjectHideFlags: 0

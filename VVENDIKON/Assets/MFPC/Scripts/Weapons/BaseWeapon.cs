@@ -1,23 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
     public string weaponName;
     public float damage;
     public float range;
+    public event Action<ItemCore> OnWeaponBreak;
 
-    public abstract void Use(); // Each weapon will implement its own behavior
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected int maxDurability = 100;
+    [SerializeField] protected int durabilityLossPerUse = 1;
+    [SerializeField] protected int currentDurability;
+    private bool isBroken = false;
+
+    public float DurabilityPercentage => (float)currentDurability / maxDurability;
+
+    protected virtual void Awake()
     {
-        
+        currentDurability = maxDurability;
     }
 
-    // Update is called once per frame
-    void Update()
+    public abstract void Use();
+
+    protected void ReduceDurability()
     {
-        
+        if (isBroken) return;
+        currentDurability = Mathf.Max(0, currentDurability - durabilityLossPerUse);
+        if (currentDurability <= 0) BreakWeapon();
+    }
+
+    protected void BreakWeapon()
+    {
+        isBroken = true;
+        OnWeaponBreak?.Invoke(GetComponent<ItemCore>());
+        Debug.Log($"{weaponName} broke!");
+    }
+
+    protected Creature GetHitCreature()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range))
+        {
+            return hit.collider.GetComponent<Creature>();
+        }
+        return null;
     }
 }

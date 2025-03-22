@@ -6,6 +6,7 @@ public enum ItemState { WorldItem, Tool, InSpawnHolder }
 public class ItemCore : MonoBehaviour
 {
     [SerializeField] public Tool tool;
+    [SerializeField] public BaseWeapon weapon; // Add this field
     [SerializeField] public WorldItem worldItem;
     [SerializeField] public Item item;
     [SerializeField] private GameObject visual;

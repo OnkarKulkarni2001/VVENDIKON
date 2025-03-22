@@ -10,14 +10,15 @@ public class PlayerCore : MonoBehaviour, IHittable
     [SerializeField] private int _currentCoins = 0;
 
     [Header("Invincibility")]
-    [SerializeField] private float _invincibilityTime = 1f; // Serializable invincibility duration
-    private bool _isInvincible = false; // Tracks invincibility state
+    [SerializeField] private float _invincibilityTime = 1f;
+    private bool _isInvincible = false;
 
     [Header("Extra")]
- //   [SerializeField] private GameData gameData;
     [SerializeField] private float _durationOfHitFreezeFrame = 0.1f;
 
-    // Events with amount parameters
+    [Header("References")]
+    [SerializeField] private InventorySystem inventorySystem;
+
     public event Action<int> onHealthChanged;
     public event Action<int> onCoinsChanged;
     public event Action onDeath;
@@ -28,23 +29,38 @@ public class PlayerCore : MonoBehaviour, IHittable
 
     private void Awake()
     {
-
-       // gameData.playerCore = this;
+        if (inventorySystem == null)
+        {
+            inventorySystem = GetComponent<InventorySystem>();
+            if (inventorySystem == null)
+            {
+                UnityEngine.Debug.LogError("InventorySystem not found on PlayerCore!");
+            }
+        }
     }
-
- 
 
     private void Start()
     {
         onHealthChanged?.Invoke(_currentHealth);
     }
 
-    public void Respawn()
+    private void Update()
     {
+        if (inventorySystem == null) return;
 
+        if (Input.GetKeyDown(KeyCode.Alpha1)) inventorySystem.SelectSlot(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) inventorySystem.SelectSlot(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) inventorySystem.SelectSlot(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) inventorySystem.SelectSlot(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) inventorySystem.SelectSlot(4);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0)) inventorySystem.UseCurrentTool();
+        if (Input.GetKeyDown(KeyCode.T)) inventorySystem.ThrowItem();
     }
 
-
+    public void Respawn()
+    {
+    }
 
     private void ModifyHealth(int amount)
     {
@@ -83,31 +99,35 @@ public class PlayerCore : MonoBehaviour, IHittable
     void HandleDeath()
     {
         onDeath?.Invoke();
-        // Add custom death logic later
     }
 
     public void TakeDamage()
     {
-        if (_isInvincible) return; // Exit if invincible
+        if (_isInvincible) return;
 
         OnTakeDamage?.Invoke();
 
         ModifyHealth(-1);
-        StartCoroutine(InvincibilityCoroutine()); // Start invincibility after taking damage
+
+        // Add freeze-frame effect
+        StartCoroutine(FreezeFrameCoroutine());
+
+        StartCoroutine(InvincibilityCoroutine());
     }
 
-    // Handles invincibility duration
+    private IEnumerator FreezeFrameCoroutine()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(_durationOfHitFreezeFrame);
+        Time.timeScale = 1f;
+    }
+
     private IEnumerator InvincibilityCoroutine()
     {
         _isInvincible = true;
         yield return new WaitForSeconds(_invincibilityTime);
         _isInvincible = false;
     }
-
-    //public void TakeExplosionDamage(ExplosionData explosionData, Vector3 explosionOrigin)
-    //{
-    //    TakeDamage();
-    //}
 
     public void TakeHit(HitData hitData)
     {

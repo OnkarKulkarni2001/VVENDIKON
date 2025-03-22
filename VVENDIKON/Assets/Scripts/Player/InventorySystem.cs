@@ -39,6 +39,7 @@ public class InventorySystem : MonoBehaviour
         RemoveItem(item);
     }
 
+    // Modified AddItem(ItemCore item) to support weapons as well - by Onkar
     public bool AddItem(ItemCore item)
     {
         for (int i = 0; i < items.Length; i++)
@@ -50,7 +51,12 @@ public class InventorySystem : MonoBehaviour
                 item.transform.localPosition = Vector3.zero;
                 item.MakeItTool();
                 item.SetOwner(playerCore);
-                item.tool.OnToolBreak += HandleItemBroken;
+
+                if (item.tool != null)
+                    item.tool.OnToolBreak += HandleItemBroken;
+                if (item.weapon != null)
+                    item.weapon.OnWeaponBreak += HandleItemBroken;
+
                 OnInventoryUpdated?.Invoke();
                 SelectSlot(i);
                 return true;
@@ -59,10 +65,16 @@ public class InventorySystem : MonoBehaviour
         return false;
     }
 
+    // Modified RemoveItem(int index) to support weapons as well - by Onkar
     public void RemoveItem(int index)
     {
-        if (index < 0 || index >= items.Length) return;
-        items[index].tool.OnToolBreak -= HandleItemBroken;
+        if (index < 0 || index >= items.Length || items[index] == null) return;
+
+        if (items[index].tool != null)
+            items[index].tool.OnToolBreak -= HandleItemBroken;
+        if (items[index].weapon != null)
+            items[index].weapon.OnWeaponBreak -= HandleItemBroken;
+
         items[index] = null;
         OnInventoryUpdated?.Invoke();
     }
@@ -181,17 +193,41 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    // Modified UseCurrentTool() to support weapons as well - by Onkar
     public void UseCurrentTool()
     {
-        if (GetSelectedItem() == null)
+        ItemCore selectedItem = GetSelectedItem();
+        if (selectedItem == null)
         {
             if (fistTool != null)
                 fistTool.Use();
-                      
         }
+        else if (selectedItem.tool != null)
+        {
+            selectedItem.tool.Use();
+        }
+        else if (selectedItem.weapon != null)
+        {
+            selectedItem.weapon.Use();
+        }
+    }
 
-
-        GetSelectedItem()?.tool?.Use();
+    // I thought this is needed to release the creatures at some spot maybe where we want to sell them - by Onkar
+    public void ReleaseGrabbedCreature()
+    {
+        ItemCore selectedItem = GetSelectedItem();
+        if (selectedItem != null)
+        {
+            foreach (Transform child in selectedItem.transform)
+            {
+                Creature creature = child.GetComponent<Creature>();
+                if (creature != null)
+                {
+                    creature.Release();
+                    break; // Release one creature at a time
+                }
+            }
+        }
     }
 
 }

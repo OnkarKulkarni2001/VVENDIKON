@@ -1,27 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gun : BaseWeapon
 {
-    public float fireRate = 0.5f; // Additional property for this weapon
+    public float fireRate = 0.5f;
+    private float nextFireTime = 0f;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         weaponName = "Gun";
         damage = 10f;
         range = 50f;
+        maxDurability = 50;
     }
 
     public override void Use()
     {
-        Debug.Log(weaponName + " fired!");
-        // Add shooting mechanics here
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Time.time < nextFireTime || currentDurability <= 0) return;
+
+        Debug.Log($"{weaponName} fired!");
+        nextFireTime = Time.time + fireRate;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range))
+        {
+            Debug.Log($"Hit {hit.collider.name} for {damage} damage!");
+        }
+
+        ReduceDurability();
     }
 }
