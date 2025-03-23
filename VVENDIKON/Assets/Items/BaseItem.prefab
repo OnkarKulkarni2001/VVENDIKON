@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5213199128693310265}
   - component: {fileID: 6322833528584593161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 2784699418191364185}
   - component: {fileID: 2808413443627614663}
   - component: {fileID: 3898864334834387110}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tool: {fileID: 6322833528584593161}
+  weapon: {fileID: 0}
   worldItem: {fileID: 835459004083991541}
   item: {fileID: 11400000, guid: d72cd3b7289450f41ad8ddf51119f163, type: 2}
   visual: {fileID: 3301281649566704384}
@@ -146,10 +147,8 @@ GameObject:
   - component: {fileID: 5959513916794453410}
   - component: {fileID: 2831289181409367631}
   - component: {fileID: 835459004083991541}
-  - component: {fileID: 79758525310991065}
-  - component: {fileID: 2173619893569571836}
   - component: {fileID: 1687757346069510425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WorldItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,33 +208,6 @@ MonoBehaviour:
   rb: {fileID: 2808413443627614663}
   col: {fileID: 2831289181409367631}
   item: {fileID: 11400000, guid: d72cd3b7289450f41ad8ddf51119f163, type: 2}
---- !u!114 &79758525310991065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712251893611968764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e525bfc0b22be4dab56fae2c8dfb7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectionFeedback: {fileID: 2173619893569571836}
---- !u!114 &2173619893569571836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712251893611968764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b737019a93271c41a72d5c313334a96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  componentToToggle: {fileID: 5091222533652226637}
-  uiIndicator: {fileID: 0}
 --- !u!135 &1687757346069510425
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -349,7 +321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2425771348369547132}
-  - component: {fileID: 5091222533652226637}
   m_Layer: 0
   m_Name: VisualParent
   m_TagString: Untagged
@@ -373,21 +344,3 @@ Transform:
   - {fileID: 5515308345154939385}
   m_Father: {fileID: 2784699418191364185}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5091222533652226637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3301281649566704384}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 7.04
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
