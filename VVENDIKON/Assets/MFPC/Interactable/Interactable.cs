@@ -1,3 +1,4 @@
+using MFPC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,14 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     public string description;
+    public int itemPrice;
     public UnityEvent onInteract;
+
+    CurrencySystem currencySystem;
 
     void Start()
     {
+        currencySystem = FindObjectOfType<CurrencySystem>();
         showUi(false);
     }
 
@@ -27,7 +32,14 @@ public class Interactable : MonoBehaviour
 
     public void Interact()
     {
-        onInteract.Invoke();
+        if(currencySystem.currentMoney >= itemPrice)
+        {
+            onInteract.Invoke();
+            currencySystem.currentMoney -= itemPrice;
+        }
+        else
+        {
+            Debug.Log("Get Some Money peasant");
+        }
     }
-
 }

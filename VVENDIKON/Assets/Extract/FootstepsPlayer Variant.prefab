@@ -113,7 +113,7 @@ MonoBehaviour:
   pickupRange: 5
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 1011
+    m_Bits: 51
   throwOrigin: {fileID: 2604951328055339413}
 --- !u!114 &3595567650189908777
 MonoBehaviour:
@@ -130,8 +130,8 @@ MonoBehaviour:
   _currentHealth: 3
   _currentCoins: 0
   _invincibilityTime: 0.5
-  gameData: {fileID: 11400000, guid: 33a6ec13cc55ad640bcee01477c08b2c, type: 2}
   _durationOfHitFreezeFrame: 0.5
+  inventorySystem: {fileID: 0}
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:
