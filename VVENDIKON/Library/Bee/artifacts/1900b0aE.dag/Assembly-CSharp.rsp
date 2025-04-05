@@ -119,6 +119,7 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:DOTWEEN
+-define:UNITY_POST_PROCESSING_STACK_V2
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"Assets/Plugins/Demigiant/DOTween/DOTween.dll"
@@ -436,6 +437,7 @@
 "Assets/Scripts/Creatures/cCreature.cs"
 "Assets/Scripts/EnemyAI.cs"
 "Assets/Scripts/EnemySpawner.cs"
+"Assets/Scripts/ExplodeFromProximity.cs"
 "Assets/Scripts/FlashLight.cs"
 "Assets/Scripts/Items/AnimMeleeWeaponConnector.cs"
 "Assets/Scripts/Items/InventorySlotUI.cs"
@@ -446,6 +448,7 @@
 "Assets/Scripts/Items/Tool.cs"
 "Assets/Scripts/Items/WorldItem.cs"
 "Assets/Scripts/OpenDoor.cs"
+"Assets/Scripts/PlayBeepSound.cs"
 "Assets/Scripts/Player/IHittable.cs"
 "Assets/Scripts/Player/InventorySystem.cs"
 "Assets/Scripts/Player/ItemInteractionHandler.cs"

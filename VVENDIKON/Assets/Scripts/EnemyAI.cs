@@ -74,7 +74,7 @@ public class EnemyAiTutorial : MonoBehaviour
         NavMeshHit navMeshHit;
         if (!NavMesh.SamplePosition(walkPoint, out navMeshHit, 0.01f, NavMesh.AllAreas))
         {
-            Debug.Log("Point not in NavMesh");
+            //Debug.Log("Point not in NavMesh");
             walkPointSet = false;
             return;
         }
