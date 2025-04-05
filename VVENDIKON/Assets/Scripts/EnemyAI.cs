@@ -16,6 +16,7 @@ public class EnemyAiTutorial : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
+    public NavMeshData navMesh;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -31,7 +32,7 @@ public class EnemyAiTutorial : MonoBehaviour
         player = GameObject.Find("Player")?.transform;
         if (player == null)
         {
-            Debug.LogError("Player not found!");
+            //Debug.LogError("Player not found!");
         }
         agent = GetComponent<NavMeshAgent>();
     }
@@ -41,8 +42,8 @@ public class EnemyAiTutorial : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        Debug.Log("Player in Sight Range: " + playerInSightRange);
-        Debug.Log("Player in Attack Range: " + playerInAttackRange);
+        //Debug.Log("Player in Sight Range: " + playerInSightRange);
+        //Debug.Log("Player in Attack Range: " + playerInAttackRange);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
@@ -69,6 +70,16 @@ public class EnemyAiTutorial : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+        NavMeshHit navMeshHit;
+        if (!NavMesh.SamplePosition(walkPoint, out navMeshHit, 0.01f, NavMesh.AllAreas))
+        {
+            Debug.Log("Point not in NavMesh");
+            walkPointSet = false;
+            return;
+        }
+
+        //Debug.Log(navMeshHit.position.x + ", " + navMeshHit.position.y + ", " + navMeshHit.position.z);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
