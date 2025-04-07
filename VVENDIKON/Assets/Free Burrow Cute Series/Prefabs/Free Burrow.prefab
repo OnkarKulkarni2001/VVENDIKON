@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3361834574544056098}
   - component: {fileID: 8667052616836904280}
-  - component: {fileID: 3272117181076607817}
+  - component: {fileID: 7499217567353527140}
   - component: {fileID: 6762562271398220789}
   m_Layer: 0
   m_Name: Free Burrow
@@ -381,7 +381,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3272117181076607817
+--- !u!114 &7499217567353527140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -390,9 +390,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2732684518155842968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c00bccc73e2f73d45894a24bd0311919, type: 3}
+  m_Script: {fileID: 11500000, guid: 236924c65ce95fd42a50fbd85d9c8143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   agent: {fileID: 6762562271398220789}
   player: {fileID: 0}
   whatIsGround:
@@ -401,15 +402,26 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
-  health: 0
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  timeBetweenAttacks: 0.5
-  projectile: {fileID: 0}
-  sightRange: 15
-  attackRange: 6
-  playerInSightRange: 0
-  playerInAttackRange: 0
+  canPatrol: 1
+  canFlee: 1
+  safeDistance: 15
+  patrolSpeed: 2
+  fleeSpeed: 6
+  walkPointRange: 10
+  fleePointRange: 20
+  sightRange: 6
+  health: 100
+  detectionSound: {fileID: 8300000, guid: 9d30afd24b5e4014e808930733a95098, type: 3}
+  fleeSound: {fileID: 8300000, guid: 1b147b35755f0f541923698ee68ac7ba, type: 3}
+  patrolSound: {fileID: 8300000, guid: 13ac61fcf9bedd545861cce16aa1a5c1, type: 3}
+  footstepSound: {fileID: 8300000, guid: 9d30afd24b5e4014e808930733a95098, type: 3}
+  soundVolume: 0.7
+  minSoundDelay: 3
+  maxSoundDelay: 8
+  soundMinDistance: 1
+  soundMaxDistance: 15
+  spatialBlend: 0.8
+  rolloffMode: 0
 --- !u!195 &6762562271398220789
 NavMeshAgent:
   m_ObjectHideFlags: 0
